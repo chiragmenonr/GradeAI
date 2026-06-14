@@ -65,8 +65,8 @@ export function WhatYouNeed({
 }: Props) {
   if (assignmentWeight <= 0) {
     return (
-      <div className="rounded-xl border border-blue-500/30 bg-white/5 p-4 text-center shadow-[0_0_15px_rgba(59,130,246,0.1)]">
-        <p className="text-sm text-white/40">
+      <div className="rounded-xl border border-blue-500/30 bg-white dark:bg-white/5 p-4 text-center shadow-[0_0_15px_rgba(59,130,246,0.1)]">
+        <p className="text-sm text-slate-400 dark:text-white/40">
           Your grade is fully determined by exams — no assignment contribution.
         </p>
       </div>
@@ -105,7 +105,7 @@ export function WhatYouNeed({
 
   return (
     <div>
-      <p className="mb-2 text-xs text-white/35">Score needed on {nextLabel}:</p>
+      <p className="mb-2 text-xs text-slate-400 dark:text-white/35">Score needed on {nextLabel}:</p>
       <div className="grid grid-cols-3 gap-3">
         {cards.map(({ grade, role, main, sub }, i) => {
           const { color, borderCls, badge, verb } = ROLE_STYLE[role];
@@ -115,15 +115,15 @@ export function WhatYouNeed({
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 + 0.3, duration: 0.35 }}
-              className={`rounded-xl border bg-white/5 p-3 text-center ${borderCls}`}
+              className={`rounded-xl border bg-white dark:bg-white/5 p-3 text-center ${borderCls}`}
             >
               <div className="mb-1 flex items-center justify-center gap-1">
                 <span className={`text-[10px] ${color} opacity-70`}>{badge}</span>
-                <span className="text-[10px] text-white/35 uppercase tracking-wide">{verb}</span>
+                <span className="text-[10px] text-slate-400 dark:text-white/35 uppercase tracking-wide">{verb}</span>
               </div>
               <p className={`text-2xl font-bold ${color}`}>{grade}</p>
-              <p className="mt-1 text-sm font-semibold text-white tabular-nums">{main}</p>
-              <p className="mt-0.5 text-[10px] text-white/30 leading-tight">{sub}</p>
+              <p className="mt-1 text-sm font-semibold text-slate-900 dark:text-white tabular-nums">{main}</p>
+              <p className="mt-0.5 text-[10px] text-slate-400 dark:text-white/30 leading-tight">{sub}</p>
             </motion.div>
           );
         })}

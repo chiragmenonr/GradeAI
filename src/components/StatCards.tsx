@@ -80,18 +80,18 @@ export function StatCards({ finalGrade, highestGrade, lowestGrade, assignmentCou
             transition={{ duration: 0.4, delay: card.delay, ease: 'easeOut' }}
             onMouseEnter={() => hasBreakdown && setHoveredId(card.id)}
             onMouseLeave={() => setHoveredId(null)}
-            className={`relative min-h-[90px] overflow-hidden rounded-xl border bg-white/5 p-4 ${card.borderCls} ${hasBreakdown ? 'cursor-default' : ''}`}
+            className={`relative min-h-[90px] overflow-hidden rounded-xl border bg-white dark:bg-white/5 p-4 ${card.borderCls} ${hasBreakdown ? 'cursor-default' : ''}`}
           >
             {/* Main content */}
             <div className={`transition-opacity duration-150 ${isHovered ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-              <p className="mb-1 text-xs text-white/40">{card.label}</p>
-              <p className="text-3xl font-bold tabular-nums text-white">
+              <p className="mb-1 text-xs text-slate-400 dark:text-white/40">{card.label}</p>
+              <p className="text-3xl font-bold tabular-nums text-slate-900 dark:text-white">
                 {card.isCount ? card.value : <CountUp target={card.value} />}
                 {card.isCount ? '' : '%'}
               </p>
-              {card.extra && <p className="mt-1 text-sm font-medium text-white/50">{card.extra}</p>}
+              {card.extra && <p className="mt-1 text-sm font-medium text-slate-500 dark:text-white/50">{card.extra}</p>}
               {hasBreakdown && (
-                <p className="mt-1 text-[10px] text-white/20">hover for breakdown</p>
+                <p className="mt-1 text-[10px] text-slate-300 dark:text-white/20">hover for breakdown</p>
               )}
             </div>
 
@@ -107,12 +107,12 @@ export function StatCards({ finalGrade, highestGrade, lowestGrade, assignmentCou
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: i * 0.05, duration: 0.15 }}
-                    className="flex flex-col items-center justify-center rounded-lg bg-white/10 text-center px-1"
+                    className="flex flex-col items-center justify-center rounded-lg bg-slate-100 dark:bg-white/10 text-center px-1"
                   >
-                    <span className="text-[10px] font-semibold uppercase tracking-wide text-white/45">
+                    <span className="text-[10px] font-semibold uppercase tracking-wide text-slate-500 dark:text-white/45">
                       {e.type}
                     </span>
-                    <span className="mt-0.5 text-sm font-bold text-white leading-none">
+                    <span className="mt-0.5 text-sm font-bold text-slate-900 dark:text-white leading-none">
                       {card.getVal(e)}
                     </span>
                   </motion.div>

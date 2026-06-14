@@ -28,7 +28,7 @@ function renderSection(raw: string, isDone: boolean) {
     } else if (part.trim()) {
       const isLast = i === parts.length - 1;
       nodes.push(
-        <p key={`t-${i}`} className={`text-sm leading-relaxed ${currentSection === 'INSIGHT' ? 'italic text-white/75' : 'text-white/80'}`}>
+        <p key={`t-${i}`} className={`text-sm leading-relaxed ${currentSection === 'INSIGHT' ? 'italic text-slate-600 dark:text-white/75' : 'text-slate-700 dark:text-white/80'}`}>
           {part.trimStart()}
           {isLast && !isDone && (
             <span className="inline-block w-0.5 animate-[blink_1s_step-end_infinite] bg-purple-400 align-middle ml-0.5 h-4" />
@@ -45,7 +45,7 @@ export function StreamingInsight({ text, isDone }: Props) {
   const isEmpty = !text.trim();
 
   return (
-    <div className={`rounded-xl border bg-white/5 p-5 transition-all duration-300 ${
+    <div className={`rounded-xl border bg-white dark:bg-white/5 p-5 transition-all duration-300 ${
       !isDone
         ? 'border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.25)] pulse-glow'
         : 'border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.1)]'
@@ -55,9 +55,9 @@ export function StreamingInsight({ text, isDone }: Props) {
         <div className={`flex h-6 w-6 items-center justify-center rounded-full bg-purple-500/20 text-sm ${!isDone ? 'animate-pulse' : ''}`}>
           ✦
         </div>
-        <span className="text-sm font-semibold text-purple-300">AI Analysis</span>
+        <span className="text-sm font-semibold text-purple-600 dark:text-purple-300">AI Analysis</span>
         {!isDone && (
-          <span className="ml-auto text-xs text-white/30">
+          <span className="ml-auto text-xs text-slate-400 dark:text-white/30">
             <span className="animate-[blink_1s_step-end_infinite]">Generating</span>
             <span className="animate-[blink_1s_step-end_infinite_0.33s]">.</span>
             <span className="animate-[blink_1s_step-end_infinite_0.66s]">.</span>
@@ -69,9 +69,9 @@ export function StreamingInsight({ text, isDone }: Props) {
       {/* Content */}
       {isEmpty ? (
         <div className="space-y-2">
-          <div className="h-3 w-full animate-pulse rounded bg-white/10" />
-          <div className="h-3 w-5/6 animate-pulse rounded bg-white/10" />
-          <div className="h-3 w-4/6 animate-pulse rounded bg-white/10" />
+          <div className="h-3 w-full animate-pulse rounded bg-slate-200 dark:bg-white/10" />
+          <div className="h-3 w-5/6 animate-pulse rounded bg-slate-200 dark:bg-white/10" />
+          <div className="h-3 w-4/6 animate-pulse rounded bg-slate-200 dark:bg-white/10" />
         </div>
       ) : (
         <div>{renderSection(text, isDone)}</div>

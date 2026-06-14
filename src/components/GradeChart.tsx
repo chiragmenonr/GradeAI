@@ -67,11 +67,11 @@ export function GradeChart({ grades, assignments, gradientId = 'main', compact =
               <stop offset="100%" stopColor="#a855f7" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.07)" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
           <XAxis
             dataKey="label"
-            stroke="#94a3b8"
-            tick={{ fontSize: 10, fill: '#94a3b8' }}
+            stroke="var(--chart-axis)"
+            tick={{ fontSize: 10, fill: 'var(--chart-axis)' }}
             angle={hasLabels ? -40 : 0}
             textAnchor={hasLabels ? 'end' : 'middle'}
             interval={interval}
@@ -79,19 +79,19 @@ export function GradeChart({ grades, assignments, gradientId = 'main', compact =
           />
           <YAxis
             domain={[0, 110]}
-            stroke="#94a3b8"
-            tick={{ fontSize: 11 }}
+            stroke="var(--chart-axis)"
+            tick={{ fontSize: 11, fill: 'var(--chart-axis)' }}
             tickFormatter={v => `${v}%`}
             width={42}
           />
           <Tooltip
             contentStyle={{
-              background: '#1e1b2e',
-              border: '1px solid rgba(168,85,247,0.3)',
+              background: 'var(--tooltip-bg)',
+              border: '1px solid var(--tooltip-border)',
               borderRadius: '8px',
-              color: '#e2e8f0',
+              color: 'var(--tooltip-text)',
             }}
-            labelStyle={{ color: '#c4b5fd', fontSize: 12 }}
+            labelStyle={{ color: 'var(--tooltip-label)', fontSize: 12 }}
             formatter={(v) => [typeof v === 'number' ? `${v.toFixed(2)}%` : String(v ?? ''), 'Grade'] as [string, string]}
           />
           <ReferenceLine y={89.5} stroke="#4ade80" strokeDasharray="4 4"

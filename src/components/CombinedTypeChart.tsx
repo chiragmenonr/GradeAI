@@ -89,11 +89,11 @@ export function CombinedTypeChart({ aItems, bItems, labelA, labelB, gradientId }
               <stop offset="100%" stopColor="#a855f7" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.07)" />
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" />
           <XAxis
             dataKey="label"
-            stroke="#94a3b8"
-            tick={{ fontSize: 10, fill: '#94a3b8' }}
+            stroke="var(--chart-axis)"
+            tick={{ fontSize: 10, fill: 'var(--chart-axis)' }}
             angle={-40}
             textAnchor="end"
             interval={interval}
@@ -101,19 +101,19 @@ export function CombinedTypeChart({ aItems, bItems, labelA, labelB, gradientId }
           />
           <YAxis
             domain={[0, 110]}
-            stroke="#94a3b8"
-            tick={{ fontSize: 11 }}
+            stroke="var(--chart-axis)"
+            tick={{ fontSize: 11, fill: 'var(--chart-axis)' }}
             tickFormatter={v => `${v}%`}
             width={42}
           />
           <Tooltip
-            contentStyle={{ background: '#1e1b2e', border: '1px solid rgba(168,85,247,0.3)', borderRadius: '8px', color: '#e2e8f0' }}
-            labelStyle={{ color: '#c4b5fd', fontSize: 11 }}
+            contentStyle={{ background: 'var(--tooltip-bg)', border: '1px solid var(--tooltip-border)', borderRadius: '8px', color: 'var(--tooltip-text)' }}
+            labelStyle={{ color: 'var(--tooltip-label)', fontSize: 11 }}
             formatter={(v, key) => [typeof v === 'number' ? `${v.toFixed(2)}%` : String(v ?? ''), key === 'a' ? labelA : labelB] as [string, string]}
           />
           <Legend
             formatter={value => value === 'a' ? labelA : labelB}
-            wrapperStyle={{ fontSize: 11, color: '#94a3b8', paddingBottom: 2 }}
+            wrapperStyle={{ fontSize: 11, color: 'var(--chart-axis)', paddingBottom: 2 }}
           />
           <ReferenceLine y={89.5} stroke="#4ade80" strokeDasharray="4 4" label={{ value: 'A', fill: '#4ade80', fontSize: 11 }} />
           <ReferenceLine y={69.5} stroke="#facc15" strokeDasharray="4 4" label={{ value: 'C', fill: '#facc15', fontSize: 11 }} />

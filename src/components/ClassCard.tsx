@@ -10,14 +10,14 @@ interface Props {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  HW: 'bg-blue-500/20 text-blue-300',
-  QZ: 'bg-purple-500/20 text-purple-300',
-  TS: 'bg-red-500/20 text-red-300',
-  GA: 'bg-indigo-500/20 text-indigo-300',
-  XC: 'bg-green-500/20 text-green-300',
+  HW: 'bg-blue-500/15 text-blue-600 dark:text-blue-300',
+  QZ: 'bg-purple-500/15 text-purple-600 dark:text-purple-300',
+  TS: 'bg-red-500/15 text-red-600 dark:text-red-300',
+  GA: 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-300',
+  XC: 'bg-green-500/15 text-green-600 dark:text-green-300',
 };
 
-const inputCls = 'rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-white placeholder-white/25 focus:border-purple-500/60 focus:outline-none';
+const inputCls = 'rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/25 focus:border-purple-500/60 focus:outline-none';
 
 function parsedToClassData(parsed: ParsedClassData): Partial<ClassData> {
   return {
@@ -63,12 +63,10 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
   const finalW = parseFloat(classData.final.weight) || 0;
   const overBudget = midtermW + finalW > 100;
 
-  // Dynamic grid cols based on which optional columns are shown
   const gridCols = [hasType && '60px', '1fr', hasDate && '100px', '70px', '70px', '28px']
     .filter(Boolean)
     .join(' ');
 
-  // Sort assignments by date when dates are present
   const displayAssignments = hasDate
     ? [...classData.assignments].sort((a, b) => {
         if (!a.date && !b.date) return 0;
@@ -148,16 +146,16 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
   }
 
   return (
-    <div className="relative rounded-xl border border-purple-500/30 bg-white/5 shadow-[0_0_20px_rgba(168,85,247,0.12)]">
+    <div className="relative rounded-xl border border-purple-500/25 dark:border-purple-500/30 bg-white dark:bg-white/5 shadow-[0_0_15px_rgba(168,85,247,0.08)] dark:shadow-[0_0_20px_rgba(168,85,247,0.12)]">
       {/* Parse loading overlay */}
       {isParsing && (
-        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-xl bg-[#0f0f1a]/85 backdrop-blur-sm">
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-xl bg-white/90 dark:bg-[#0f0f1a]/85 backdrop-blur-sm">
           <svg className="h-8 w-8 animate-spin text-purple-400" viewBox="0 0 24 24" fill="none">
             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
           </svg>
-          <p className="mt-3 text-sm text-white/70">Parsing with AI…</p>
-          <p className="mt-1 text-xs text-white/30">Large datasets may take a moment</p>
+          <p className="mt-3 text-sm text-slate-600 dark:text-white/70">Parsing with AI…</p>
+          <p className="mt-1 text-xs text-slate-400 dark:text-white/30">Large datasets may take a moment</p>
         </div>
       )}
 
@@ -169,17 +167,17 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
             placeholder="Class / Subject name"
             value={classData.subject}
             onChange={e => onChange({ ...classData, subject: e.target.value })}
-            className="flex-1 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-white placeholder-white/30 focus:border-purple-500 focus:outline-none"
+            className="flex-1 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-2 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/30 focus:border-purple-500 focus:outline-none"
           />
           {mode === 'edit' && (
             <button
               onClick={() => setMode('input')}
-              className="rounded-lg px-3 py-1.5 text-xs text-white/35 transition hover:bg-white/5 hover:text-white/60"
+              className="rounded-lg px-3 py-1.5 text-xs text-slate-400 dark:text-white/35 transition hover:bg-black/5 dark:hover:bg-white/5 hover:text-slate-600 dark:hover:text-white/60"
             >
               Re-parse
             </button>
           )}
-          <button onClick={onRemove} className="rounded-lg p-2 text-white/25 transition hover:bg-red-500/10 hover:text-red-400">✕</button>
+          <button onClick={onRemove} className="rounded-lg p-2 text-slate-300 dark:text-white/25 transition hover:bg-red-500/10 hover:text-red-400">✕</button>
         </div>
 
         {mode === 'input' ? (
@@ -190,7 +188,7 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
               value={rawText}
               onChange={e => setRawText(e.target.value)}
               rows={7}
-              className="mb-3 w-full resize-none rounded-lg border border-white/10 bg-white/5 px-4 py-3 font-mono text-sm text-white/90 placeholder-white/20 focus:border-purple-500/60 focus:outline-none"
+              className="mb-3 w-full resize-none rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-4 py-3 font-mono text-sm text-slate-800 dark:text-white/90 placeholder-slate-300 dark:placeholder-white/20 focus:border-purple-500/60 focus:outline-none"
             />
             {parseError && <p className="mb-3 rounded-lg bg-red-500/10 px-3 py-2 text-xs text-red-400">{parseError}</p>}
             <div className="flex items-center gap-2">
@@ -201,12 +199,12 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
               >
                 ✦ Parse with AI
               </button>
-              <label className="cursor-pointer rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-sm text-white/55 transition hover:bg-white/10 hover:text-white/80">
+              <label className="cursor-pointer rounded-lg border border-slate-200 dark:border-white/15 bg-white dark:bg-white/5 px-4 py-2.5 text-sm text-slate-500 dark:text-white/55 transition hover:bg-slate-50 dark:hover:bg-white/10 hover:text-slate-700 dark:hover:text-white/80">
                 Upload PDF
                 <input ref={fileInputRef} type="file" accept=".pdf" className="hidden" onChange={handlePDFUpload} />
               </label>
             </div>
-            <button onClick={goManual} className="mt-3 w-full text-center text-xs text-white/25 transition hover:text-white/45">
+            <button onClick={goManual} className="mt-3 w-full text-center text-xs text-slate-400 dark:text-white/25 transition hover:text-slate-600 dark:hover:text-white/45">
               Or add grades manually →
             </button>
           </div>
@@ -217,7 +215,7 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
             {hasWeightConfig && (
               <div className="mb-3 flex flex-wrap gap-1.5">
                 {Object.entries(classData.weightConfig!).map(([k, v]) => (
-                  <span key={k} className="rounded-full bg-purple-500/15 px-2.5 py-0.5 text-xs text-purple-300">
+                  <span key={k} className="rounded-full bg-purple-500/15 px-2.5 py-0.5 text-xs text-purple-600 dark:text-purple-300">
                     {k} {(v * 100).toFixed(0)}%
                   </span>
                 ))}
@@ -225,7 +223,7 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
             )}
 
             {/* Column headers */}
-            <div className="mb-2 grid items-center gap-2 px-1 text-xs text-white/30" style={{ gridTemplateColumns: gridCols }}>
+            <div className="mb-2 grid items-center gap-2 px-1 text-xs text-slate-400 dark:text-white/30" style={{ gridTemplateColumns: gridCols }}>
               {hasType && <span>Type</span>}
               <span>Assignment</span>
               {hasDate && (
@@ -234,7 +232,7 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
                   <button
                     onClick={() => setSortOrder(o => o === 'asc' ? 'desc' : 'asc')}
                     title={sortOrder === 'asc' ? 'Oldest first — click for newest' : 'Newest first — click for oldest'}
-                    className="text-white/30 hover:text-white/60 transition leading-none"
+                    className="text-slate-400 dark:text-white/30 hover:text-slate-600 dark:hover:text-white/60 transition leading-none"
                   >
                     {sortOrder === 'asc' ? '↑' : '↓'}
                   </button>
@@ -245,7 +243,7 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
               <span />
             </div>
 
-            {/* Assignment rows (scrollable) */}
+            {/* Assignment rows */}
             <div className="max-h-80 space-y-1.5 overflow-y-auto pr-0.5">
               {displayAssignments.map(a => {
                 const score = parseFloat(a.score);
@@ -264,7 +262,7 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
                           onChange={e => { updateAssignment(a.id, 'type', e.target.value); setEditingTypeId(null); }}
                           onBlur={() => setEditingTypeId(null)}
                           autoFocus
-                          className="w-full rounded bg-white/10 border border-white/20 px-1 py-0.5 text-xs text-white focus:outline-none cursor-pointer"
+                          className="w-full rounded bg-slate-50 dark:bg-white/10 border border-slate-200 dark:border-white/20 px-1 py-0.5 text-xs text-slate-900 dark:text-white focus:outline-none cursor-pointer"
                         >
                           <option value="">—</option>
                           {Object.entries(TYPE_LONG).map(([code, label]) => (
@@ -275,7 +273,7 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
                         <span
                           onClick={() => setEditingTypeId(a.id)}
                           title="Click to change type"
-                          className={`cursor-pointer rounded px-1.5 py-0.5 text-center text-xs font-medium ${TYPE_COLORS[a.type?.toUpperCase() ?? ''] ?? 'bg-white/8 text-white/35'}`}
+                          className={`cursor-pointer rounded px-1.5 py-0.5 text-center text-xs font-medium ${TYPE_COLORS[a.type?.toUpperCase() ?? ''] ?? 'bg-slate-100 dark:bg-white/8 text-slate-400 dark:text-white/35'}`}
                         >
                           {a.type ?? '—'}
                         </span>
@@ -303,7 +301,7 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
                       value={a.score}
                       onChange={e => updateAssignment(a.id, 'score', e.target.value)}
                       placeholder="85"
-                      className={`${inputCls} text-center ${isZero ? 'text-red-400' : ''} ${isEC ? 'text-green-400' : ''}`}
+                      className={`${inputCls} text-center ${isZero ? 'text-red-400' : ''} ${isEC ? 'text-green-500 dark:text-green-400' : ''}`}
                     />
                     <input
                       type="number"
@@ -315,27 +313,27 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
                     />
                     <button
                       onClick={() => removeAssignment(a.id)}
-                      className="flex h-7 w-7 items-center justify-center rounded text-white/20 transition hover:text-red-400"
+                      className="flex h-7 w-7 items-center justify-center rounded text-slate-300 dark:text-white/20 transition hover:text-red-400"
                     >✕</button>
                   </div>
                 );
               })}
             </div>
 
-            <button onClick={addAssignment} className="mb-5 mt-2 text-sm text-purple-400/60 transition hover:text-purple-400">
+            <button onClick={addAssignment} className="mb-5 mt-2 text-sm text-purple-500/70 dark:text-purple-400/60 transition hover:text-purple-600 dark:hover:text-purple-400">
               + Add assignment
             </button>
 
-            {/* Midterm/Final — hidden when weightConfig accounts for everything */}
+            {/* Midterm/Final */}
             {!hasWeightConfig && (
-              <div className="rounded-lg border border-white/8 bg-black/20 p-4">
-                <p className="mb-3 text-xs font-medium uppercase tracking-wider text-white/30">Midterm &amp; Final Exam</p>
-                <div className="mb-2 grid grid-cols-[72px_70px_70px_1fr] gap-2 px-1 text-xs text-white/30">
+              <div className="rounded-lg border border-slate-200 dark:border-white/8 bg-slate-50 dark:bg-black/20 p-4">
+                <p className="mb-3 text-xs font-medium uppercase tracking-wider text-slate-400 dark:text-white/30">Midterm &amp; Final Exam</p>
+                <div className="mb-2 grid grid-cols-[72px_70px_70px_1fr] gap-2 px-1 text-xs text-slate-400 dark:text-white/30">
                   <span /><span className="text-center">Score</span><span className="text-center">Max pts</span><span className="pl-3">% of grade</span>
                 </div>
                 {(['midterm', 'final'] as const).map(exam => (
                   <div key={exam} className="mb-2 grid grid-cols-[72px_70px_70px_1fr] items-center gap-2">
-                    <span className="text-sm capitalize text-white/55">{exam}</span>
+                    <span className="text-sm capitalize text-slate-500 dark:text-white/55">{exam}</span>
                     <input type="number" min="0" placeholder="Score" value={classData[exam].score}
                       onChange={e => updateExam(exam, 'score', e.target.value)} className={`${inputCls} text-center`} />
                     <input type="number" min="1" placeholder="100" value={classData[exam].maxPoints}
@@ -343,12 +341,12 @@ export function ClassCard({ classData, onChange, onRemove }: Props) {
                     <div className="flex items-center gap-2 pl-3">
                       <input type="number" min="0" max="100" placeholder="0" value={classData[exam].weight}
                         onChange={e => updateExam(exam, 'weight', e.target.value)}
-                        className="w-16 rounded-lg border border-white/10 bg-white/5 px-2 py-1.5 text-center text-sm text-white placeholder-white/25 focus:border-blue-500/60 focus:outline-none" />
-                      <span className="text-sm text-white/40">%</span>
+                        className="w-16 rounded-lg border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-2 py-1.5 text-center text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-white/25 focus:border-blue-500/60 focus:outline-none" />
+                      <span className="text-sm text-slate-400 dark:text-white/40">%</span>
                     </div>
                   </div>
                 ))}
-                <div className={`mt-2 rounded px-3 py-1.5 text-xs ${overBudget ? 'bg-red-500/10 text-red-400' : 'bg-white/5 text-white/30'}`}>
+                <div className={`mt-2 rounded px-3 py-1.5 text-xs ${overBudget ? 'bg-red-500/10 text-red-400' : 'bg-slate-100 dark:bg-white/5 text-slate-400 dark:text-white/30'}`}>
                   {overBudget
                     ? `Exam weights total ${(midtermW + finalW).toFixed(0)}% — must be ≤ 100%.`
                     : `Assignments: ${Math.max(0, 100 - midtermW - finalW).toFixed(0)}% · Midterm: ${midtermW.toFixed(0)}% · Final: ${finalW.toFixed(0)}%`}

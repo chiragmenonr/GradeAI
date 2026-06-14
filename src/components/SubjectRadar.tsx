@@ -27,23 +27,23 @@ export function SubjectRadar({ analyses }: Props) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="rounded-xl border border-indigo-500/30 bg-white/5 p-5 shadow-[0_0_20px_rgba(99,102,241,0.15)]"
+      className="rounded-xl border border-indigo-500/30 bg-white dark:bg-white/5 p-5 shadow-[0_0_20px_rgba(99,102,241,0.1)] dark:shadow-[0_0_20px_rgba(99,102,241,0.15)]"
     >
-      <h3 className="mb-1 font-semibold text-indigo-300">Subject Overview</h3>
-      <p className="mb-4 text-xs text-white/35">Strengths vs. weaknesses across all classes</p>
+      <h3 className="mb-1 font-semibold text-indigo-600 dark:text-indigo-300">Subject Overview</h3>
+      <p className="mb-4 text-xs text-slate-400 dark:text-white/35">Strengths vs. weaknesses across all classes</p>
 
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={data} margin={{ top: 10, right: 20, bottom: 10, left: 20 }}>
-            <PolarGrid stroke="rgba(255,255,255,0.08)" />
+            <PolarGrid stroke="var(--chart-grid)" />
             <PolarAngleAxis
               dataKey="subject"
-              tick={{ fill: '#94a3b8', fontSize: 12 }}
+              tick={{ fill: 'var(--chart-axis)', fontSize: 12 }}
             />
             <PolarRadiusAxis
               angle={90}
               domain={[0, 100]}
-              tick={{ fill: '#475569', fontSize: 10 }}
+              tick={{ fill: 'var(--chart-axis)', fontSize: 10 }}
               tickCount={4}
             />
             <Radar
@@ -56,9 +56,10 @@ export function SubjectRadar({ analyses }: Props) {
             />
             <Tooltip
               contentStyle={{
-                background: '#1e1b2e',
-                border: '1px solid rgba(168,85,247,0.3)',
+                background: 'var(--tooltip-bg)',
+                border: '1px solid var(--tooltip-border)',
                 borderRadius: '8px',
+                color: 'var(--tooltip-text)',
               }}
               formatter={(value, _name, entry) => [
                 typeof value === 'number' ? `${value.toFixed(2)}% (${getLetterGrade(value)})` : `${value}`,
