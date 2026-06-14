@@ -60,9 +60,9 @@ export function SubjectRadar({ analyses }: Props) {
                 border: '1px solid rgba(168,85,247,0.3)',
                 borderRadius: '8px',
               }}
-              formatter={(value: number, _: string, entry: { payload: { fullName: string } }) => [
-                `${value.toFixed(2)}% (${getLetterGrade(value)})`,
-                entry.payload.fullName,
+              formatter={(value, _name, entry) => [
+                typeof value === 'number' ? `${value.toFixed(2)}% (${getLetterGrade(value)})` : `${value}`,
+                (entry?.payload as { fullName?: string })?.fullName ?? String(_name),
               ]}
             />
           </RadarChart>

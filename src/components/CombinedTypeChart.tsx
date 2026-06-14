@@ -109,7 +109,7 @@ export function CombinedTypeChart({ aItems, bItems, labelA, labelB, gradientId }
           <Tooltip
             contentStyle={{ background: '#1e1b2e', border: '1px solid rgba(168,85,247,0.3)', borderRadius: '8px', color: '#e2e8f0' }}
             labelStyle={{ color: '#c4b5fd', fontSize: 11 }}
-            formatter={(v: number, key: string) => [`${v.toFixed(2)}%`, key === 'a' ? labelA : labelB]}
+            formatter={(v, key) => [typeof v === 'number' ? `${v.toFixed(2)}%` : String(v ?? ''), key === 'a' ? labelA : labelB] as [string, string]}
           />
           <Legend
             formatter={value => value === 'a' ? labelA : labelB}

@@ -92,7 +92,7 @@ export function GradeChart({ grades, assignments, gradientId = 'main', compact =
               color: '#e2e8f0',
             }}
             labelStyle={{ color: '#c4b5fd', fontSize: 12 }}
-            formatter={(v: number) => [`${v.toFixed(2)}%`, 'Grade']}
+            formatter={(v) => [typeof v === 'number' ? `${v.toFixed(2)}%` : String(v ?? ''), 'Grade'] as [string, string]}
           />
           <ReferenceLine y={89.5} stroke="#4ade80" strokeDasharray="4 4"
             label={{ value: 'A', fill: '#4ade80', fontSize: 11 }} />
